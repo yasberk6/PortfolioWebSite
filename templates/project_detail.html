@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.title }} - {{ data.name }}{% endblock %}
+
+{% block content %}
+<!-- Project Hero Section -->
+<section class="project-hero py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold mb-4">{{ project.title }}</h1>
+                <p class="lead mb-4">{{ project.description }}</p>
+                <div class="project-links">
+                    {% if project.github != '#' %}
+                    <a href="{{ project.github }}" class="btn btn-outline-light me-3" target="_blank">
+                        <i class="fab fa-github me-2"></i>GitHub'da Görüntüle
+                    </a>
+                    {% endif %}
+                    {% if project.demo != '#' %}
+                    <a href="{{ project.demo }}" class="btn btn-light" target="_blank">
+                        <i class="fas fa-external-link-alt me-2"></i>Canlı Demo
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="{{ project.image }}" alt="{{ project.title }}" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Details Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Screenshots Section -->
+                <div class="project-screenshots mb-5">
+                    <h3 class="mb-4">Uygulama Ekran Görüntüleri</h3>
+                    <div class="row">
+                        {% if project.screenshots %}
+                            {% for screenshot in project.screenshots %}
+                            <div class="col-md-4 mb-3">
+                                <img src="{{ screenshot }}" alt="Screenshot {{ loop.index }}" class="img-fluid rounded shadow screenshot-img" style="cursor: pointer;">
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-md-4 mb-3">
+                                <img src="{{ project.image }}" alt="Screenshot 1" class="img-fluid rounded shadow screenshot-img" style="cursor: pointer;">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <img src="{{ project.image }}" alt="Screenshot 2" class="img-fluid rounded shadow screenshot-img" style="cursor: pointer;">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <img src="{{ project.image }}" alt="Screenshot 3" class="img-fluid rounded shadow screenshot-img" style="cursor: pointer;">
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="project-features mb-5">
+                    <h3 class="mb-4">Temel Özellikler</h3>
+                    {% if 'Cooklio' in project.title %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <i class="fas fa-robot text-primary me-2"></i>
+                                    <strong>AI Destekli Tarif Önerisi</strong><br>
+                                    <small class="text-muted">GPT-4 ile kişiselleştirilmiş tarifler</small>
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-camera text-primary me-2"></i>
+                                    <strong>Görsel Tanıma</strong><br>
+                                    <small class="text-muted">Fotoğraftan malzeme tespiti</small>
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-heart text-primary me-2"></i>
+                                    <strong>Favori Sistemi</strong><br>
+                                    <small class="text-muted">Beğenilen tarifleri kaydetme</small>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <i class="fas fa-user text-primary me-2"></i>
+                                    <strong>Kullanıcı Profilleri</strong><br>
+                                    <small class="text-muted">Kişiselleştirilmiş deneyim</small>
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-history text-primary me-2"></i>
+                                    <strong>Arama Geçmişi</strong><br>
+                                    <small class="text-muted">Önceki aramalarını görüntüleme</small>
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-cloud text-primary me-2"></i>
+                                    <strong>Cloud Storage</strong><br>
+                                    <small class="text-muted">Fotoğrafların güvenli saklanması</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% elif 'Vhalys' in project.title %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <i class="fas fa-lightbulb text-primary me-2"></i>
+                                    <strong>Fikir Paylaşımı</strong><br>
+                                    <small class="text-muted">Yaratıcı fikirlerini paylaş</small>
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-vote-yea text-primary me-2"></i>
+                                    <strong>Oylama Sistemi</strong><br>
+                                    <small class="text-muted">Fikirlere oy verme ve anketler</small>
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-users text-primary me-2"></i>
+                                    <strong>Sosyal Etkileşim</strong><br>
+                                    <small class="text-muted">Topluluk ile etkileşim</small>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <i class="fas fa-chart-bar text-primary me-2"></i>
+                                    <strong>İstatistikler</strong><br>
+                                    <small class="text-muted">Kullanıcı aktivite analizi</small>
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-filter text-primary me-2"></i>
+                                    <strong>Kategori Filtreleme</strong><br>
+                                    <small class="text-muted">Konuya göre fikir arama</small>
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-star text-primary me-2"></i>
+                                    <strong>Favori Fikirler</strong><br>
+                                    <small class="text-muted">Beğenilen içerikleri kaydetme</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <!-- Technology Stack -->
+                <div class="tech-stack mb-5">
+                    <h4 class="mb-4">Kullanılan Teknolojiler</h4>
+                    <div class="tech-list">
+                        {% for tech, description in project.tech_details.items() %}
+                        <div class="tech-item mb-3 p-3 bg-light rounded">
+                            <h6 class="mb-2 text-primary">{{ tech }}</h6>
+                            <p class="mb-0 small text-muted">{{ description }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Project Info -->
+                <div class="project-info bg-primary text-white p-4 rounded">
+                    <h5 class="mb-3">Proje Bilgileri</h5>
+                    <div class="info-item mb-3">
+                        <i class="fas fa-calendar me-2"></i>
+                        <strong>Durum:</strong> Aktif Geliştirme
+                    </div>
+                    <div class="info-item mb-3">
+                        <i class="fas fa-mobile-alt me-2"></i>
+                        <strong>Platform:</strong> iOS (Native)
+                    </div>
+                    <div class="info-item mb-3">
+                        <i class="fas fa-code me-2"></i>
+                        <strong>Dil:</strong> Swift
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-database me-2"></i>
+                        <strong>Backend:</strong> Firebase
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Back to Projects -->
+<section class="py-4 bg-light">
+    <div class="container text-center">
+        <a href="{{ url_for('projects') }}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Tüm Projelere Dön
+        </a>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Image gallery functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('.screenshot-img');
+    
+    images.forEach(img => {
+        img.addEventListener('click', function() {
+            // Create modal for full-size image view
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ekran Görüntüsü</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body text-center p-2">
+                            <img src="${this.src}" class="img-fluid" alt="${this.alt}" style="max-height: 80vh;">
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        });
+    });
+});
+</script>
+{% endblock %} 

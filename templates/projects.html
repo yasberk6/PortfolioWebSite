@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Projeler - {{ data.name }}{% endblock %}
+
+{% block content %}
+<!-- Projects Hero Section -->
+<section class="projects-hero py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold mb-4">Projelerim</h1>
+                <p class="lead">
+                    Geliştirdiğim iOS uygulamaları ve AI destekli mobil çözümler. Her biri farklı teknolojiler kullanarak 
+                    yaratılmış ve gerçek dünya problemlerine çözüm getiren uygulamalar.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Grid -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            {% for project in data.projects %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="{{ project.image }}" alt="{{ project.title }}" class="card-img-top">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="{{ project.github }}" class="btn btn-outline-light btn-sm overlay-btn" target="_blank" title="GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                {% if 'Cooklio' in project.title %}
+                                <a href="{{ url_for('cooklio_detail') }}" class="btn btn-outline-light btn-sm overlay-btn" title="Proje Detayları">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                {% elif 'Vhalys' in project.title %}
+                                <a href="{{ url_for('vhalys_detail') }}" class="btn btn-outline-light btn-sm overlay-btn" title="Proje Detayları">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                {% else %}
+                                <a href="{{ project.demo }}" class="btn btn-outline-light btn-sm overlay-btn" title="Demo">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
+                        <div class="tech-tags">
+                            {% for tech in project.tech %}
+                            <span class="badge bg-primary me-1 mb-1">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="project-features mt-3">
+                            <h6 class="features-title">Kullanılan Teknolojiler:</h6>
+                            <ul class="features-list">
+                                {% if project.title == 'Cooklio - AI Destekli Tarif Uygulaması' %}
+                                    <li><strong>Swift (UIKit)</strong> - Uygulamanın native iOS arayüzü ve mantığı</li>
+                                    <li><strong>Firebase Auth</strong> - Kullanıcı kimlik doğrulama işlemleri</li>
+                                    <li><strong>Cloud Firestore</strong> - Malzeme verisi, kullanıcı geçmişi, favoriler için veri tabanı</li>
+                                    <li><strong>Firebase Storage</strong> - Kullanıcıların yüklediği yemek fotoğraflarının saklanması</li>
+                                    <li><strong>OpenAI API (GPT-4)</strong> - Malzemelere göre tarif önerisi oluşturma</li>
+                                    <li><strong>Google Gemini API</strong> - Görüntü işleme ve fotoğraftan bilgi çıkarma</li>
+                                {% elif project.title == 'Vhalys - Fikir Paylaşım Platformu' %}
+                                    <li><strong>Swift (UIKit)</strong> - Uygulamanın ön yüzü</li>
+                                    <li><strong>Firebase Auth</strong> - Kullanıcı kayıt/giriş sistemi</li>
+                                    <li><strong>Cloud Firestore</strong> - Fikir gönderileri, oylama verileri, kullanıcı profilleri</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ project.github }}" class="btn btn-outline-primary" target="_blank">
+                                    <i class="fab fa-github me-1"></i>GitHub
+                                </a>
+                                {% if 'Cooklio' in project.title %}
+                                <a href="{{ url_for('cooklio_detail') }}" class="btn btn-primary">
+                                    <i class="fas fa-info-circle me-1"></i>Detaylar
+                                </a>
+                                {% elif 'Vhalys' in project.title %}
+                                <a href="{{ url_for('vhalys_detail') }}" class="btn btn-primary">
+                                    <i class="fas fa-info-circle me-1"></i>Detaylar
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h2 class="mb-4">Kendi iOS Uygulamanızı Geliştirelim!</h2>
+                <p class="lead mb-4">
+                    Benzer bir mobil uygulama mı düşünüyorsunuz? Birlikte çalışarak hayalinizdeki iOS uygulamasını gerçekleştirebiliriz.
+                </p>
+                <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg">
+                    <i class="fas fa-rocket me-2"></i>Uygulama Geliştirmeye Başlayalım
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

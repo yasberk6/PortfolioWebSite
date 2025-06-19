@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - {{ data.name }}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        .contact-item {
+            animation-fill-mode: forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">
+                <i class="fas fa-code me-2"></i>{{ data.name }}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('home') }}">
+                            <i class="fas fa-home me-1"></i>Ana Sayfa
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">
+                            <i class="fas fa-user me-1"></i>Hakkımda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('projects') }}">
+                            <i class="fas fa-folder-open me-1"></i>Projeler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contact') }}">
+                            <i class="fas fa-envelope me-1"></i>İletişim
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Contact Hero Section -->
+        <section class="contact-hero py-5 bg-primary text-white">
+            <div class="container">
+                <div class="row justify-content-center text-center">
+                    <div class="col-lg-8">
+                        <h1 class="display-5 fw-bold mb-4">İletişime Geçin</h1>
+                        <p class="lead">
+                            Yeni bir proje, iş birliği veya sadece merhaba demek için benimle iletişime geçebilirsiniz. 
+                            Size en kısa sürede geri döneceğim!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="py-5">
+            <div class="container">
+                <div class="row">
+                    <!-- Contact Form -->
+                    <div class="col-lg-8 mb-5">
+                        <div class="contact-form">
+                            <h3 class="mb-4">Mesaj Gönderin</h3>
+                            <form id="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="name" class="form-label">Adınız</label>
+                                        <input type="text" class="form-control" id="name" name="from_name" autocomplete="name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">E-posta Adresiniz</label>
+                                        <input type="email" class="form-control" id="email" name="from_email" autocomplete="email" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Konu</label>
+                                    <select class="form-control" id="subject" name="subject" autocomplete="off" required>
+                                        <option value="">Konu seçin...</option>
+                                        <option value="proje">Yeni Proje Teklifi</option>
+                                        <option value="isbirligi">İş Birliği</option>
+                                        <option value="danismanlik">Danışmanlık</option>
+                                        <option value="diger">Diğer</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="message" class="form-label">Mesajınız</label>
+                                    <textarea class="form-control" id="message" name="message" rows="6" 
+                                              autocomplete="off"
+                                              placeholder="Projeniz hakkında detayları paylaşabilirsiniz..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                                    <i class="fas fa-paper-plane me-2"></i>Mesaj Gönder
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="col-lg-4">
+                        <div class="contact-info">
+                            <!-- Profile Photo -->
+                            <div class="text-center mb-4">
+                                <img src="/static/images/profile.jpg" alt="{{ data.name }}" 
+                                     class="rounded-circle shadow-lg" 
+                                     style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #fff;">
+                                <h4 class="text-white mt-3">{{ data.name }}</h4>
+                                <p class="text-white-50">{{ data.title }}</p>
+                            </div>
+                            
+                            <h3 class="mb-4 text-white">İletişim Bilgileri</h3>
+                            
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <h5>E-posta</h5>
+                                    <p><a href="mailto:{{ data.email }}" class="text-white">{{ data.email }}</a></p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <i class="fab fa-github"></i>
+                                <div>
+                                    <h5>GitHub</h5>
+                                    <p><a href="{{ data.github }}" class="text-white" target="_blank">github.com/yasberk6</a></p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <i class="fab fa-linkedin"></i>
+                                <div>
+                                    <h5>LinkedIn</h5>
+                                    <p><a href="{{ data.linkedin }}" class="text-white" target="_blank">linkedin.com/in/yaşar-berk-irgatoğlu</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>{{ data.name }}</h5>
+                    <p class="mb-1">{{ data.title }}</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h6>Beni Takip Edin</h6>
+                    <div class="social-links">
+                        <a href="{{ data.github }}" class="text-light me-3" target="_blank">
+                            <i class="fab fa-github fa-lg"></i>
+                        </a>
+                        <a href="{{ data.linkedin }}" class="text-light me-3" target="_blank">
+                            <i class="fab fa-linkedin fa-lg"></i>
+                        </a>
+                        <a href="mailto:{{ data.email }}" class="text-light">
+                            <i class="fas fa-envelope fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 {{ data.name }}. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS ONLY - NO main.js to avoid conflicts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- CONTACT PAGE SPECIFIC SCRIPT -->
+    <script>
+    console.log('🔥 CONTACT PAGE - STANDALONE VERSION');
+    console.log('📄 No main.js conflicts here!');
+    
+    // Initialize EmailJS and form when page loads
+    window.addEventListener('load', function() {
+        console.log('🟢 Page fully loaded');
+        
+        // EmailJS initialization
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init("{{ emailjs.public_key }}");
+            console.log('✅ EmailJS initialized');
+        } else {
+            console.error('❌ EmailJS not loaded');
+        }
+        
+        // Form setup
+        const form = document.getElementById('contactForm');
+        if (form) {
+            console.log('✅ Form found');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('🚀 FORM SUBMITTED!');
+                
+                const btn = document.getElementById('submitBtn');
+                const originalText = btn.innerHTML;
+                
+                // Get and display form data
+                const formData = new FormData(this);
+                console.log('📝 Form data:');
+                for (let [key, value] of formData.entries()) {
+                    console.log(`  ${key}: ${value}`);
+                }
+                
+                // Loading state
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Gönderiliyor...';
+                btn.disabled = true;
+                
+                // Send email
+                if (typeof emailjs !== 'undefined') {
+                    console.log('📧 Sending email...');
+                    
+                    emailjs.sendForm('{{ emailjs.service_id }}', '{{ emailjs.template_id }}', this)
+                        .then(function(response) {
+                            console.log('✅ SUCCESS!', response);
+                            alert('✅ Mesajınız gönderildi!');
+                            form.reset();
+                        })
+                        .catch(function(error) {
+                            console.error('❌ ERROR!', error);
+                            alert('❌ Hata: ' + (error.text || 'Bilinmeyen hata'));
+                        })
+                        .finally(function() {
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                        });
+                } else {
+                    console.error('❌ EmailJS not available');
+                    alert('EmailJS yüklenemedi!');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            });
+        } else {
+            console.error('❌ Form not found');
+        }
+        
+        // Auto-resize textarea
+        const textarea = document.querySelector('#message');
+        if (textarea) {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+            });
+        }
+        
+        // Simple animations
+        const contactItems = document.querySelectorAll('.contact-item');
+        contactItems.forEach((item, index) => {
+            item.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s forwards`;
+            item.style.opacity = '0';
+        });
+        
+        console.log('✅ Contact page fully initialized');
+    });
+    </script>
+</body>
+</html>

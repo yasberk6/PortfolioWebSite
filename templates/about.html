@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Hakkımda - {{ data.name }}{% endblock %}
+
+{% block content %}
+<!-- About Hero Section -->
+<section class="about-hero py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold mb-4">Hakkımda</h1>
+                <p class="lead">
+                    Merhaba! Ben {{ data.name }}, tutkulu bir yazılım geliştiricisiyim. 
+                    Web teknolojileri ve modern yazılım çözümleri konusunda uzmanlaşmış biriyim.
+                </p>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="about-image">
+                    <img src="/static/images/profile.jpg" alt="{{ data.name }}" class="img-fluid rounded-circle shadow-lg" style="width: 250px; height: 250px; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bio Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="bio-content">
+                    <h2 class="section-title text-center mb-5">Benim Hikayem</h2>
+                    <div class="bio-text">
+                        <p class="lead">
+                            {{ data.bio }}
+                        </p>
+                        <p>
+                            Yazılım geliştirme yolculuğuma üniversitede başladım ve özellikle mobil uygulama geliştirme konularına odaklandım. 
+                            Swift ekosisteminde iOS uygulamaları geliştirirken, OpenAI API gibi hazır AI servislerini kullanarak basit yapay zeka entegrasyonları yapmaya odaklanıyorum.
+                        </p>
+                        <p>
+                            iOS geliştirme konusunda UIKit ve SwiftUI framework'leri ile deneyim sahibiyim. Firebase ve temel AI API entegrasyonları gibi modern teknolojileri 
+                            kullanarak kullanıcı deneyimini ön planda tutan, hem işlevsel hem de estetik mobil uygulamalar geliştirmeyi hedefliyorum.
+                        </p>
+                        <p>
+                            Yazılım geliştirmeyi sadece kod yazmak değil, aynı zamanda kullanıcı deneyimi oluşturmak, problemi çözmek ve üretmek olarak görüyorum. 
+                            Yeni teknolojileri öğrenmeye, denemeye ve gerçek ürünlere entegre etmeye büyük heyecan duyuyorum.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Detail Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="section-title">Teknik Yeteneklerim</h2>
+                <p class="section-subtitle">Uzmanlaştığım teknolojiler ve araçlar</p>
+            </div>
+        </div>
+        <div class="row">
+            {% for skill in data.skills %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="skill-card-detailed">
+                    <div class="skill-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="skill-content">
+                        <h5 class="skill-name">{{ skill.name }}</h5>
+                        <div class="skill-level-container">
+                            <div class="skill-level" data-level="{{ skill.level }}">
+                                <div class="skill-fill"></div>
+                            </div>
+                            <span class="skill-percentage">{{ skill.level }}%</span>
+                        </div>
+                        <p class="skill-description">
+                            {% if skill.name == 'Swift' %}
+                                iOS uygulama geliştirme, UIKit, SwiftUI ve modern Swift patterns
+                            {% elif skill.name == 'iOS Development' %}
+                                Native iOS uygulamaları, App Store deployment ve iOS SDK
+                            {% elif skill.name == 'Firebase' %}
+                                Firestore, Authentication, Cloud Functions ve realtime database
+                            {% elif skill.name == 'CoreML' %}
+                                Temel AI API entegrasyonları ve basit machine learning kullanımı
+                            {% elif skill.name == 'Python' %}
+                                Temel scripting, API entegrasyonları ve basit data processing
+                            {% elif skill.name == 'Machine Learning' %}
+                                OpenAI API kullanımı, prompt engineering ve temel AI entegrasyonları
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="section-title">Deneyim & Eğitim</h2>
+                <p class="section-subtitle">Profesyonel yolculuğum ve eğitim geçmişim</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4 class="timeline-title">Bilgisayar Mühendisliği Öğrencisi</h4>
+                            <span class="timeline-date">2021 - Günümüz</span>
+                            <p class="timeline-description">
+                                Bilgisayar Mühendisliği son sınıf öğrencisi olarak özellikle mobil uygulama geliştirme ve yapay zeka alanlarında 
+                                uzmanlaşıyorum. iOS geliştirme, machine learning ve modern yazılım geliştirme metodolojileri konularında deneyim kazanıyorum.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4 class="timeline-title">iOS Development Projeler</h4>
+                            <span class="timeline-date">2023 - Günümüz</span>
+                            <p class="timeline-description">
+                                Cooklio ve Vhalys gibi kişisel projelerimi geliştirirken iOS ecosystem'i, Swift programlama dili konularında deneyim kazandım. 
+                                Firebase backend servisleri ve OpenAI API entegrasyonları ile mobil uygulamalar geliştirdim.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4 class="timeline-title">API Entegrasyonları & Temel AI</h4>
+                            <span class="timeline-date">2022 - 2023</span>
+                            <p class="timeline-description">
+                                OpenAI API gibi hazır yapay zeka servislerini kullanarak basit AI entegrasyonları yapmayı öğrendim. 
+                                Prompt engineering ve temel API kullanımı konularında deneyim kazandım.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Animate skill bars when in view
+const skillObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const skillFills = entry.target.querySelectorAll('.skill-fill');
+            skillFills.forEach(fill => {
+                const level = fill.closest('.skill-level').dataset.level;
+                fill.style.width = level + '%';
+            });
+        }
+    });
+}, { threshold: 0.3 });
+
+const skillsSection = document.querySelector('.bg-light');
+if (skillsSection) {
+    skillObserver.observe(skillsSection);
+}
+</script>
+{% endblock %} 
