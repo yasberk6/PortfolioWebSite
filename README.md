@@ -1,6 +1,3 @@
-# 🚀 Portfolio Sitesi
-
-Flask ile geliştirilmiş modern ve responsive portfolio sitesi. Python web geliştirme yeteneklerini sergileyen profesyonel bir sunum aracı.
 
 ## ✨ Özellikler
 
@@ -8,15 +5,12 @@ Flask ile geliştirilmiş modern ve responsive portfolio sitesi. Python web geli
 - **Dinamik İçerik**: Python ile yönetilen portfolio verileri
 - **İletişim Formu**: Ziyaretçilerin mesaj gönderebilmesi için form
 - **Responsive Design**: Tüm cihazlarda mükemmel görünüm
-- **SEO Optimizasyonu**: Arama motorları için optimize edilmiş
 - **Animasyonlar**: CSS ve JavaScript ile güzel geçiş efektleri
 
 ## 🔧 Teknolojiler
 
-- **Backend**: Python, Flask
 - **Frontend**: HTML5, CSS3, JavaScript
 - **Framework**: Bootstrap 5
-- **İkonlar**: Font Awesome
 - **Fontlar**: Google Fonts (Poppins)
 
 ## 📦 Kurulum
