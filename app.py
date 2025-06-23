@@ -1,7 +1,4 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 import os
 from dotenv import load_dotenv
 
@@ -10,17 +7,6 @@ load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-here'  # Değiştirin!
-
-# Personal data
-data = {
-    'name': 'Yaşar Berk İrgatoğlu',
-    'title': 'Full Stack Developer',
-    'email': 'yasarberk.irgatoglu@gmail.com',
-    'github': 'https://github.com/yasberk6',
-    'linkedin': 'https://linkedin.com/in/yaşar-berk-irgatoğlu',
-    'bio': 'Python ve web teknolojileri konusunda uzman, yenilikçi çözümler üreten geliştiriciyim.',
-    'location': 'İstanbul, Türkiye'
-}
 
 # EmailJS Configuration
 emailjs_config = {
@@ -52,7 +38,7 @@ PORTFOLIO_DATA = {
             'image': '/static/images/cooklio_logo_300x300.png',
             'screenshots': [
                 '/static/images/cooklio/screenshot1.jpg',
-                '/static/images/cooklio/screenshot2.jpg', 
+                '/static/images/cooklio/screenshot2.jpg',
                 '/static/images/cooklio/screenshot3.jpg'
             ],
             'tech': ['Swift (UIKit)', 'Firebase Auth', 'Cloud Firestore', 'Firebase Storage', 'OpenAI API (GPT-4)', 'Google Gemini API'],
@@ -92,15 +78,15 @@ PORTFOLIO_DATA = {
 
 @app.route('/')
 def home():
-    return render_template('index.html', data=data, emailjs=emailjs_config)
+    return render_template('index.html', data=PORTFOLIO_DATA, emailjs=emailjs_config)
 
 @app.route('/about')
 def about():
-    return render_template('about.html', data=data, emailjs=emailjs_config)
+    return render_template('about.html', data=PORTFOLIO_DATA, emailjs=emailjs_config)
 
 @app.route('/projects')
 def projects():
-    return render_template('projects.html', data=data, emailjs=emailjs_config)
+    return render_template('projects.html', data=PORTFOLIO_DATA, emailjs=emailjs_config)
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -108,16 +94,14 @@ def contact():
         name = request.form['name']
         email = request.form['email']
         message = request.form['message']
-        
-        # Basit form validasyonu
+
         if not name or not email or not message:
             flash('Lütfen tüm alanları doldurun!', 'error')
         else:
-            # Burada email gönderme işlemi olabilir
             flash('Mesajınız başarıyla gönderildi! En kısa sürede döneceğim.', 'success')
             return redirect(url_for('contact'))
-    
-    return render_template('contact.html', data=data, emailjs=emailjs_config)
+
+    return render_template('contact.html', data=PORTFOLIO_DATA, emailjs=emailjs_config)
 
 @app.route('/project/cooklio')
 def cooklio_detail():
