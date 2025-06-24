@@ -160,6 +160,9 @@ body {
     border-radius: 50%;
     background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
     z-index: -1;
+
+    animation: none !important;
+    transform: none !important;
 }
 
 /* ===== SCROLL INDICATOR ===== */
